@@ -54,7 +54,7 @@ def split_sentences(text):
     Utility function to return a list of sentences.
     @param text The text that must be split in to sentences.
     """
-    sentence_delimiters = re.compile(u'[.!?,;:\t\\\\"\\(\\)\\\'\u2019\u2013]|\\s\\-\\s')
+    sentence_delimiters = re.compile('[.!?,;:\t\\\\"\\(\\)\\\'\u2019\u2013]|\\s\\-\\s')
     sentences = sentence_delimiters.split(text)
     return sentences
 
@@ -133,7 +133,7 @@ class Rake(object):
 
         keyword_candidates = generate_candidate_keyword_scores(phrase_list, word_scores)
 
-        sorted_keywords = sorted(keyword_candidates.iteritems(), key=operator.itemgetter(1), reverse=True)
+        sorted_keywords = sorted(iter(keyword_candidates.items()), key=operator.itemgetter(1), reverse=True)
         return sorted_keywords
 
 
@@ -156,12 +156,12 @@ if test:
     keywordcandidates = generate_candidate_keyword_scores(phraseList, wordscores)
     if debug: print (keywordcandidates)
 
-    sortedKeywords = sorted(keywordcandidates.iteritems(), key=operator.itemgetter(1), reverse=True)
+    sortedKeywords = sorted(iter(keywordcandidates.items()), key=operator.itemgetter(1), reverse=True)
     if debug: print (sortedKeywords)
 
     totalKeywords = len(sortedKeywords)
     if debug: print (totalKeywords)
-    print (sortedKeywords[0:(totalKeywords / 3)])
+    print((sortedKeywords[0:(totalKeywords / 3)]))
 
     rake = Rake("SmartStoplist.txt")
     keywords = rake.run(text)
